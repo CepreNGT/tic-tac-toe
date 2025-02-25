@@ -76,6 +76,11 @@ function addResetListener () {
 }
 
 function resetClickHandler () {
+    field = [];
+    step = true;
+    stepsNumber = 0;
+    gameEnded = false;
+    startGame(dimension);
     console.log('reset!');
 }
 
