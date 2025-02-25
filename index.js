@@ -6,8 +6,9 @@ const container = document.getElementById('fieldWrapper');
 let field = [];
 let step = true;
 let stepsNumber = 0;
+let dimension = 3;
 
-startGame(3);
+startGame(dimension);
 addResetListener();
 
 function startGame (dimension) {
@@ -47,6 +48,7 @@ function cellClickHandler (row, col) {
         step = !step;
         renderSymbolInCell(field[row][col], row, col);
         stepsNumber -= 1;
+        checkFieldForWinner(row, col);
     }
     if (stepsNumber === 0) {
         alert("Победила дружба");
@@ -73,6 +75,59 @@ function addResetListener () {
 
 function resetClickHandler () {
     console.log('reset!');
+}
+
+function checkFieldForWinner(row, col) {
+    let rows = [row - 2, row - 1, row, row + 1, row + 2];
+    let cols = [col - 2, col - 1, col, col + 1, col + 2];
+    let symbol = 0;
+    count = 0;
+    for (let i = 0; i < 5; i++) {
+        if (rows[i] < 0 || rows[i] > dimension - 1) continue;
+        if (symbol === 0) symbol = field[rows[i]][col];
+        if (field[rows[i]][col] === symbol) count++;
+        else count = 0;
+    }
+    if (count >= 3 && symbol !== EMPTY) {
+        alert(`Победил ${symbol}!`);
+        return;
+    }
+    symbol = 0;
+    count = 0;
+    for (let i = 0; i < 5; i++) {
+        if (cols[i] < 0 || cols[i] > dimension - 1) continue;
+        if (symbol === 0) symbol = field[row][cols[i]];
+        if (field[row][cols[i]] === symbol) count++;
+        else count = 0;
+    }
+    if (count >= 3 && symbol !== EMPTY) {
+        alert(`Победил ${symbol}!`);
+        return;
+    }
+    symbol = 0;
+    count = 0;
+    for (let i = 0; i < 5; i++) {
+        if (cols[i] < 0 || cols[i] > dimension - 1 || rows[i] < 0 || rows[i] > dimension - 1) continue;
+        if (symbol === 0) symbol = field[rows[i]][cols[i]];
+        if (field[rows[i]][cols[i]] === symbol) count++;
+        else count = 0;
+    }
+    if (count >= 3 && symbol !== EMPTY) {
+        alert(`Победил ${symbol}!`);
+        return;
+    }
+    symbol = 0;
+    count = 0;
+    for (let i = 0; i < 5; i++) {
+        if (cols[i] < 0 || cols[i] > dimension - 1 || rows[4 - i] < 0 || rows[4 - i] > dimension - 1) continue;
+        if (symbol === 0) symbol = field[rows[4 - i]][cols[i]];
+        if (field[rows[4 - i]][cols[i]] === symbol) count++;
+        else count = 0;
+    }
+    if (count >= 3 && symbol !== EMPTY) {
+        alert(`Победил ${symbol}!`);
+        return;
+    }
 }
 
 
