@@ -3,12 +3,24 @@ const ZERO = 'O';
 const EMPTY = ' ';
 
 const container = document.getElementById('fieldWrapper');
+let field = [];
 
-startGame();
+startGame(3);
 addResetListener();
 
-function startGame () {
-    renderGrid(3);
+function startGame (dimension) {
+    createGrid(dimension)
+    renderGrid(dimension);
+}
+
+function createGrid(dimension) {
+    for (let i = 0; i < dimension; i++) {
+        let row = [];
+        for (let j = 0; j < dimension; j++) {
+            row.push(EMPTY);
+        }
+        field.push(row);
+    }
 }
 
 function renderGrid (dimension) {
@@ -18,7 +30,7 @@ function renderGrid (dimension) {
         const row = document.createElement('tr');
         for (let j = 0; j < dimension; j++) {
             const cell = document.createElement('td');
-            cell.textContent = EMPTY;
+            cell.textContent = field[i][j];
             cell.addEventListener('click', () => cellClickHandler(i, j));
             row.appendChild(cell);
         }
