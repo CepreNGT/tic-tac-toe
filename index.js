@@ -7,6 +7,7 @@ let field = [];
 let step = true;
 let stepsNumber = 0;
 let dimension = 3;
+let gameEnded = false;
 
 startGame(dimension);
 addResetListener();
@@ -43,6 +44,7 @@ function renderGrid (dimension) {
 }
 
 function cellClickHandler (row, col) {
+    if (gameEnded) return;
     if (field[row][col] === EMPTY) {
         field[row][col] = (step) ? CROSS : ZERO;
         step = !step;
@@ -96,6 +98,7 @@ function checkFieldForWinner(row, col) {
     if (goodCells.length === 3 && symbol !== EMPTY) {
         goodCells.forEach(cell => colorCell(cell[0], cell[1]));
         alert(`Победил ${symbol}!`);
+        gameEnded = true;
         return;
     }
     symbol = 0;
@@ -109,6 +112,7 @@ function checkFieldForWinner(row, col) {
     if (goodCells.length === 3 && symbol !== EMPTY) {
         goodCells.forEach(cell => colorCell(cell[0], cell[1]));
         alert(`Победил ${symbol}!`);
+        gameEnded = true;
         return;
     }
     symbol = 0;
@@ -122,6 +126,7 @@ function checkFieldForWinner(row, col) {
     if (goodCells.length === 3 && symbol !== EMPTY) {
         goodCells.forEach(cell => colorCell(cell[0], cell[1]));
         alert(`Победил ${symbol}!`);
+        gameEnded = true;
         return;
     }
     symbol = 0;
@@ -135,6 +140,7 @@ function checkFieldForWinner(row, col) {
     if (goodCells.length === 3 && symbol !== EMPTY) {
         goodCells.forEach(cell => colorCell(cell[0], cell[1]));
         alert(`Победил ${symbol}!`);
+        gameEnded = true;
         return;
     }
 }
