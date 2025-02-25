@@ -5,6 +5,7 @@ const EMPTY = ' ';
 const container = document.getElementById('fieldWrapper');
 let field = [];
 let step = true;
+let stepsNumber = 0;
 
 startGame(3);
 addResetListener();
@@ -15,6 +16,7 @@ function startGame (dimension) {
 }
 
 function createGrid(dimension) {
+    stepsNumber = dimension**2;
     for (let i = 0; i < dimension; i++) {
         let row = [];
         for (let j = 0; j < dimension; j++) {
@@ -40,10 +42,14 @@ function renderGrid (dimension) {
 }
 
 function cellClickHandler (row, col) {
-    if (field[row][col] == EMPTY) {
+    if (field[row][col] === EMPTY) {
         field[row][col] = (step) ? CROSS : ZERO;
         step = !step;
-        renderSymbolInCell(field[row][col], row, col)
+        renderSymbolInCell(field[row][col], row, col);
+        stepsNumber -= 1;
+    }
+    if (stepsNumber === 0) {
+        alert("Победила дружба");
     }
     console.log(`Clicked on cell: ${row}, ${col}`);
 }
