@@ -40,9 +40,11 @@ function renderGrid (dimension) {
 }
 
 function cellClickHandler (row, col) {
-    field[row][col] = (step) ? CROSS : ZERO;
-    step = !step;
-    renderSymbolInCell(field[row][col], row, col)
+    if (field[row][col] == EMPTY) {
+        field[row][col] = (step) ? CROSS : ZERO;
+        step = !step;
+        renderSymbolInCell(field[row][col], row, col)
+    }
     console.log(`Clicked on cell: ${row}, ${col}`);
 }
 
